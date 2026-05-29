@@ -9,7 +9,7 @@ import 'notification_service.dart';
 
 class AIService {
   // ── API Key interna fija ──────────────────────────────────────────────────
-  static const String _apiKey = 'AIzaSyBxGLBTynBn7U4xuQ8pEg1U4upEVaAYQ0w';
+  static const String _apiKey = 'AQ.Ab8RN6KKFcHvWz1Ir_6SknV7fa6ORAb6qqocSYUe42nH5tqTGQ';
 
   // Modelos en orden de preferencia
   static const List<String> _modelFallbacks = [
