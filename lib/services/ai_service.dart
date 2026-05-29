@@ -8,8 +8,8 @@ import 'tools_registry.dart';
 import 'notification_service.dart';
 
 class AIService {
-  // ── API Key interna fija ──────────────────────────────────────────────────
-  static const String _apiKey = 'AIzaSyBxGLBTynBn7U4xuQ8pEg1U4upEVaAYQ0w';
+  // ── API Key de Gemini leída desde el entorno ──────────────────────────────
+  static const String _apiKey = String.fromEnvironment('GEMINI_API_KEY');
 
   // Modelos en orden de preferencia
   static const List<String> _modelFallbacks = [
@@ -62,6 +62,21 @@ class AIService {
     required Uint8List imageBytes,
     required String userId,
   }) async {
+    if (_apiKey.isEmpty) {
+      print('[ASISTENTE_IA] [CRÍTICO] Clave API de Gemini (GEMINI_API_KEY) no configurada.');
+      print('[ASISTENTE_IA] Para solucionar esto:');
+      print('  1. Crea un archivo "secrets.json" en la raíz de tu proyecto.');
+      print('  2. Agrega el siguiente contenido:');
+      print('     {\n       "GEMINI_API_KEY": "TU_CLAVE_API_AQUÍ"\n     }');
+      print('  3. Ejecuta tu aplicación con el parámetro "--dart-define-from-file=secrets.json", por ejemplo:');
+      print('     flutter run --dart-define-from-file=secrets.json');
+      throw Exception(
+        'Clave API de Gemini no configurada.\n\n'
+        'Por favor, crea un archivo "secrets.json" local y ejecuta la app con:\n'
+        'flutter run --dart-define-from-file=secrets.json'
+      );
+    }
+
     print('[ASISTENTE_IA] [INICIO] Procesando apunte. Imagen recibida: ${imageBytes.length} bytes.');
     
     // Garantizar que hay un usuario autenticado (puede ser anónimo)
