@@ -6,10 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart'
-    as tz_package; // Importación para tz.local
+    as tz_package;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'firebase_options.dart';
 import 'login.dart';
@@ -24,6 +25,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔒 0. Cargar variables de entorno desde .env
+  await dotenv.load(fileName: '.env');
 
   // 1. Inicializar Firebase Core
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

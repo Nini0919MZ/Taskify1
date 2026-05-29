@@ -4,12 +4,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'tools_registry.dart';
 import 'notification_service.dart';
 
 class AIService {
-  // ── API Key interna fija ──────────────────────────────────────────────────
-  static const String _apiKey = 'AQ.Ab8RN6KKFcHvWz1Ir_6SknV7fa6ORAb6qqocSYUe42nH5tqTGQ';
+  // ── API Key cargada de manera segura desde variables de entorno ──────────────
+  static String get _apiKey {
+    final key = dotenv.env['GEMINI_API_KEY'];
+    if (key == null || key.isEmpty) {
+      throw Exception(
+        '[ASISTENTE_IA] Error crítico: GEMINI_API_KEY no configurada en .env. '
+        'Copia .env.example a .env y configura tu clave API de Gemini.'
+      );
+    }
+    return key;
+  }
 
   // Modelos en orden de preferencia
   static const List<String> _modelFallbacks = [

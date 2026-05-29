@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# 🔒 SEGURIDAD: Archivos de secretos y configuración sensible
+secrets.json
+.env
+.env.local
+.env.*.local
+!.env.example
