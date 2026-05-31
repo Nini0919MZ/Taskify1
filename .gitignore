@@ -1,4 +1,6 @@
-# Miscellaneous
+flutter clean
+flutter pub get
+flutter run# Miscellaneous
 *.class
 *.log
 *.pyc
